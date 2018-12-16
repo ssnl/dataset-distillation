@@ -1,0 +1,8 @@
+numpy
+torch >= 1.0.0
+six
+tqdm
+matplotlib
+torchvision
+pyyaml
+pillow
