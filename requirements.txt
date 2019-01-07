@@ -3,6 +3,6 @@ torch >= 1.0.0
 six
 tqdm
 matplotlib
-torchvision
+torchvision >= 0.2.1
 pyyaml
 pillow

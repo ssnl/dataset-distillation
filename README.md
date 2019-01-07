@@ -33,7 +33,7 @@ The code is written by [Tongzhou Wang](https://ssnl.github.io/) and [Jun-Yan Zhu
 
 ### Dependencies
 - ``torch >= 1.0.0``
-- ``torchvision``
+- ``torchvision >= 0.2.1``
 - ``numpy``
 - ``matplotlib``
 - ``pyyaml``
