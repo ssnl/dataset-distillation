@@ -139,7 +139,10 @@ def get_dataset(state, phase):
             ]
         if phase == 'train':
             transform_list += [
-                transforms.RandomCrop(input_size, padding=4, padding_mode='reflect'),
+                # TODO: merge the following into the padding options of
+                #       RandomCrop when a new torchvision version is released.
+                transforms.Pad(padding=4, padding_mode='reflect'),
+                transforms.RandomCrop(input_size),
                 transforms.RandomHorizontalFlip(),
             ]
         transform_list += [
