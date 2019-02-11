@@ -1,4 +1,4 @@
-"""Dataset setting and data loader for USPS.
+"""Dataset setting and data loader for PASCAL VOC 2007 as a classification task.
 
 Modified from
 https://github.com/Cadene/pretrained-models.pytorch/blob/56aa8c921819d14fb36d7248ab71e191b37cb146/pretrainedmodels/datasets/voc.py
@@ -26,7 +26,7 @@ object_categories = ['aeroplane', 'bicycle', 'bird', 'boat',
 category_to_idx = {c: i for i, c in enumerate(object_categories)}
 
 urls = {
-    'devkit': 'http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCdevkit_18-May-2011.tar',
+    'devkit': 'http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCdevkit_08-Jun-2007.tar',
     'trainval_2007': 'http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtrainval_06-Nov-2007.tar',
     'test_images_2007': 'http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar',
     'test_anno_2007': 'http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtestnoimgs_06-Nov-2007.tar',
