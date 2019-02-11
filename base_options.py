@@ -244,10 +244,10 @@ class BaseOptions(object):
                             help='results directory')
         parser.add_argument('--arch', type=str, default='LeNet',
                             help='architecture: LeNet | AlexNet | etc.')
-        parser.add_argument('--mode', type=str, default='charge',
+        parser.add_argument('--mode', type=str, default='distill_basic',
                             help='mode: train | distill_basic | distill_attack | distill_adapt ')
         parser.add_argument('--distill_lr', type=float, default=0.001,
-                            help='combined total learning rate to perform GD with sc images PER STEP (default: 0.02)')
+                            help='learning rate to perform GD with distilled images PER STEP (default: 0.001)')
         parser.add_argument('--model_dir', type=str, default='./models/',
                             help='directory storing trained models')
         parser.add_argument('--model_subdir_format', type=str, default=None,
@@ -259,9 +259,9 @@ class BaseOptions(object):
         parser.add_argument('--dropout', action='store_true',
                             help='if set, use dropout')
         parser.add_argument('--distilled_images_per_class_per_step', type=pos_int, default=1,
-                            help='use #batch_size charged images for each class in each step')
+                            help='use #batch_size distilled images for each class in each step')
         parser.add_argument('--distill_steps', type=pos_int, default=10,
-                            help='Iterative sc, use #num_steps * #batch_size * #classes charged images. '
+                            help='Iterative distillation, use #num_steps * #batch_size * #classes distilled images. '
                                  'See also --distill_epochs. The total number '
                                  'of steps is distill_steps * distill_epochs.')
         parser.add_argument('--distill_epochs', type=pos_int, default=3,
