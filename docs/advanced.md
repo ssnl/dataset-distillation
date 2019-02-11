@@ -90,7 +90,7 @@ See [the Distributed Training section](#distributed-training) on using much more
 
 ## Distributed Training
 
-We often need to load multiple networks into GPU memory (e.g., we use 2000 networks for training in adaptation and malicious attack settings). A single GPU can not hold all these networks. In such cases, we can use NCCL distributed training specifying a `world_size` larger than `1`. Then, you need to start `world_size` processes with identical arguments except `device_id`, but each with a different environmental variable `RANK` representing the process rank in `[0, 1, ..., world_size - 1]`.
+We often need to load multiple networks into GPU memory (e.g., for results presented in the paper, we use 2000 networks for training in adaptation and malicious attack settings). A single GPU can not hold all these networks. In such cases, we can use NCCL distributed training specifying a `world_size` larger than `1`. Then, you need to start `world_size` processes with identical arguments except `device_id`, but each with a different environmental variable `RANK` representing the process rank in `[0, 1, ..., world_size - 1]`.
 
 There are two ways to initialize a process group in PyTorch for distributed training:
 
