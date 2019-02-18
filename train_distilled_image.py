@@ -137,22 +137,22 @@ class Trainer(object):
         #   w_{t+1}  = w_t - gw_t          (2)
         #
         # Invariants at beginning of each iteration:
-        #   ws are BEFORE applying supercharge in this step
+        #   ws are BEFORE applying gradient descent in this step
         #   Gradients dw is w.r.t. the updated ws AFTER this step
         #      dw = \d L / d w_{t+1}
         for (data, label, lr), w, gw in reversed(list(zip(steps, params, gws))):
             # hvp_in are the tensors we need gradients w.r.t. final L:
             #   lr (if learning)
             #   data
-            #   ws (PRE-supercharge) (needed for next step)
+            #   ws (PRE-GD) (needed for next step)
             #
             # source of gradients can be from:
-            #   gw, the supercharge gradient, whose gradients come from:
-            #     the POST-supercharge updated ws
+            #   gw, the gradient in this step, whose gradients come from:
+            #     the POST-GD updated ws
             hvp_in = [w]
             hvp_in.append(data)
             hvp_in.append(lr)
-            dgw = dw.neg()
+            dgw = dw.neg()  # gw is already weighted by lr, so simple negation
             hvp_grad = torch.autograd.grad(
                 outputs=(gw,),
                 inputs=hvp_in,
