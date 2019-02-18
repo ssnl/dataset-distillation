@@ -408,7 +408,7 @@ class BaseOptions(object):
         _, state.opt.dataset_root, state.opt.nc, state.opt.input_size, state.opt.num_classes, \
             state.opt.dataset_normalization, state.opt.dataset_labels = datasets.get_info(state)
 
-        # Wite yaml
+        # Write yaml
         yaml_str = yaml.dump(state.merge(public_only=True), default_flow_style=False, indent=4)
         logging.info("Options:\n\t" + yaml_str.replace("\n", "\n\t"))
 
