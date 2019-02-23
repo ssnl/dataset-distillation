@@ -204,7 +204,7 @@ class BaseOptions(object):
 
             return UniqueSetAttrAction
 
-        self.parser = parser = argparse.ArgumentParser(description='PyTroch Dataset Distillation')
+        self.parser = parser = argparse.ArgumentParser(description='PyTorch Dataset Distillation')
 
         action_registry = parser._registries['action']
         for name, action_cls in action_registry.items():
@@ -291,7 +291,7 @@ class BaseOptions(object):
         parser.add_argument('--test_distilled_images', default='loaded', type=str,
                             help='which distilled images to test [ loaded | random_train | kmeans_train ]')
         parser.add_argument('--test_distilled_lrs', default=['loaded'], nargs='+', type=str,
-                            help='which distilled lrs to test [ loaded | fixed [lr] | nearest_neighbor [k] [p] ]')
+                            help='which distilled lrs to test [ loaded | fix [lr] | nearest_neighbor [k] [p] ]')
         parser.add_argument('--test_optimize_n_runs', default=None, type=pos_int,
                             help='if set, evaluate test_optimize_n_runs sets of test images, label and lr on '
                                  'test_optimize_n_nets training networks, and pick the best test_n_runs sets.'
