@@ -46,7 +46,7 @@ def average_train(state):
     mean_imgs = mean_imgs.repeat(state.distilled_images_per_class_per_step, 1, 1, 1, 1)
     mean_imgs = mean_imgs.transpose(0, 1).flatten(end_dim=1)
     label = get_baseline_label_for_one_step(state)
-    return [(mean_imgs, label) for _ in range(state.distill_epochs) for _ in range(distill_steps)]
+    return [(mean_imgs, label) for _ in range(state.distill_epochs) for _ in range(state.distill_steps)]
 
 
 def kmeans_train(state, p=2):
