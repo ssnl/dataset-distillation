@@ -239,87 +239,88 @@ def main(state):
                     def num_steps(self):
                         return 1
 
-            elif lr_meth == 'loaded':
-                assert state.test_distill_epochs is None
-
-                def get_lrs(state):
-                    return tuple(s[-1] for s in loaded_steps)
-
-            elif lr_meth == 'fix':
-                val = float(state.test_distilled_lrs[1])
-
-                def get_lrs(state):
-                    n_steps = state.distill_steps * state.distill_epochs
-                    batch_size = state.num_classes * state.distilled_images_per_class_per_step
-                    return torch.full((n_steps, batch_size), val, device=state.device).unbind()
-
             else:
-                raise NotImplementedError('test_distilled_lrs first: {}'.format(lr_meth))
+                if lr_meth == 'loaded':
+                    assert state.test_distill_epochs is None
 
-            if state.test_optimize_n_runs is None:
-                class StepCollection(object):
-                    def __init__(self, state):
-                        self.state = state
+                    def get_lrs(state):
+                        return tuple(s[-1] for s in loaded_steps)
 
-                    def __getitem__(self, test_idx):
-                        steps = []
-                        for (data, label), lr in zip(get_data_label(self.state), get_lrs(self.state)):
-                            steps.append((data, label, lr))
-                        return steps
-            else:
-                assert state.test_optimize_n_runs >= state.test_n_runs
+                elif lr_meth == 'fix':
+                    val = float(state.test_distilled_lrs[1])
 
-                class StepCollection(object):
-                    @functools.total_ordering
-                    class Step(object):
-                        def __init__(self, step, acc):
-                            self.step = step
-                            self.acc = acc
+                    def get_lrs(state):
+                        n_steps = state.distill_steps * state.distill_epochs
+                        batch_size = state.num_classes * state.distilled_images_per_class_per_step
+                        return torch.full((n_steps, batch_size), val, device=state.device).unbind()
 
-                        def __lt__(self, other):
-                            return self.acc < other.acc
+                else:
+                    raise NotImplementedError('test_distilled_lrs first: {}'.format(lr_meth))
 
-                        def __eq__(self, other):
-                            return self.acc == other.acc
+                if state.test_optimize_n_runs is None:
+                    class StepCollection(object):
+                        def __init__(self, state):
+                            self.state = state
 
-                    def __init__(self, state):
-                        self.state = state
-                        self.good_steps = []  # min heap
-                        logging.info('Start optimizing evaluated steps...')
-                        for run_idx in range(state.test_optimize_n_runs):
-                            if state.test_nets_type == 'unknown_init':
-                                subtest_nets = [state.test_models[0] for _ in range(state.test_optimize_n_nets)]
-                            else:
-                                with state.pretend(local_n_nets=state.test_optimize_n_nets):
-                                    with utils.logging.disable(logging.INFO):
-                                        subtest_nets = load_train_models()
-                            with state.pretend(test_models=subtest_nets, test_loader=state.train_loader):
-                                steps = []
-                                for (data, label), lr in zip(get_data_label(self.state), get_lrs(self.state)):
-                                    steps.append((data, label, lr))
-                                res = evaluate_steps(state, steps, '', '', test_all=False,
-                                                     test_at_steps=[len(steps)], log_results=False)
-                                acc = self.acc(res)
-                                elem = StepCollection.Step(steps, acc)
-                                if len(self.good_steps) < state.test_n_runs:
-                                    heapq.heappush(self.good_steps, elem)
+                        def __getitem__(self, test_idx):
+                            steps = []
+                            for (data, label), lr in zip(get_data_label(self.state), get_lrs(self.state)):
+                                steps.append((data, label, lr))
+                            return steps
+                else:
+                    assert state.test_optimize_n_runs >= state.test_n_runs
+
+                    class StepCollection(object):
+                        @functools.total_ordering
+                        class Step(object):
+                            def __init__(self, step, acc):
+                                self.step = step
+                                self.acc = acc
+
+                            def __lt__(self, other):
+                                return self.acc < other.acc
+
+                            def __eq__(self, other):
+                                return self.acc == other.acc
+
+                        def __init__(self, state):
+                            self.state = state
+                            self.good_steps = []  # min heap
+                            logging.info('Start optimizing evaluated steps...')
+                            for run_idx in range(state.test_optimize_n_runs):
+                                if state.test_nets_type == 'unknown_init':
+                                    subtest_nets = [state.test_models[0] for _ in range(state.test_optimize_n_nets)]
                                 else:
-                                    heapq.heappushpop(self.good_steps, elem)
-                                logging.info((
-                                    '\tOptimize run {:> 3}:\tAcc on training set {: >5.2f}%'
-                                    '\tBoundary Acc {: >5.2f}%'
-                                ).format(run_idx, acc * 100, self.good_steps[0].acc * 100))
-                        logging.info('done')
+                                    with state.pretend(local_n_nets=state.test_optimize_n_nets):
+                                        with utils.logging.disable(logging.INFO):
+                                            subtest_nets = load_train_models()
+                                with state.pretend(test_models=subtest_nets, test_loader=state.train_loader):
+                                    steps = []
+                                    for (data, label), lr in zip(get_data_label(self.state), get_lrs(self.state)):
+                                        steps.append((data, label, lr))
+                                    res = evaluate_steps(state, steps, '', '', test_all=False,
+                                                         test_at_steps=[len(steps)], log_results=False)
+                                    acc = self.acc(res)
+                                    elem = StepCollection.Step(steps, acc)
+                                    if len(self.good_steps) < state.test_n_runs:
+                                        heapq.heappush(self.good_steps, elem)
+                                    else:
+                                        heapq.heappushpop(self.good_steps, elem)
+                                    logging.info((
+                                        '\tOptimize run {:> 3}:\tAcc on training set {: >5.2f}%'
+                                        '\tBoundary Acc {: >5.2f}%'
+                                    ).format(run_idx, acc * 100, self.good_steps[0].acc * 100))
+                            logging.info('done')
 
-                    def acc(self, res):
-                        state = self.state
-                        if state.mode != 'distill_attack':
-                            return res[1].mean().item()
-                        else:
-                            return res[1][:, 1].mean().item()
+                        def acc(self, res):
+                            state = self.state
+                            if state.mode != 'distill_attack':
+                                return res[1].mean().item()
+                            else:
+                                return res[1][:, 1].mean().item()
 
-                    def __getitem__(self, test_idx):
-                        return self.good_steps[test_idx].step
+                        def __getitem__(self, test_idx):
+                            return self.good_steps[test_idx].step
 
                 class TestRunner(object):  # noqa F811
                     def __init__(self, state):
