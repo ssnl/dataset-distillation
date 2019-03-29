@@ -62,8 +62,23 @@ def kmeans_train(state, p=2):
             cls_data[l.item()].append(d.flatten())
     cls_data = [torch.stack(coll, 0).to(state.device) for coll in cls_data]
 
-    cls_centers = torch.randn(state.num_classes, k, state.nc * state.input_size * state.input_size,
-                              device=state.device)
+    # kmeans++
+    cls_centers = []
+    for c in range(state.num_classes):
+        c_center = torch.empty(k, state.nc * state.input_size * state.input_size, device=state.device)
+        c_data = cls_data[c]
+        # first is uniform
+        c_center[0] = c_data[torch.randint(len(c_data), ()).item()]
+        for i in range(1, k):
+            assert p == 2
+            dists_sq = (c_data[:, None, :] - c_center[:i]).pow(2).sum(dim=2)  # D x I
+            weights = dists_sq.min(dim=1).values
+            # A-res
+            r = torch.rand_like(weights).pow(1 / weights)
+            c_center[i] = c_data[r.argmax().item()]
+        cls_centers.append(c_center)
+
+    cls_centers = torch.stack(cls_centers, dim=0)
     cls_assign = [torch.full((coll.size(0),), -1, dtype=torch.long, device=state.device) for coll in cls_data]
 
     def iterate(n=1024):
@@ -78,16 +93,19 @@ def kmeans_train(state, p=2):
             for d, a in zip(cls_data[c].split(n, dim=0), cls_assign[c].split(n, dim=0)):
                 new_a = torch.norm(
                     d[:, None, :] - c_center,
-                    dim=2, p=p
+                    dim=2, p=p,
                 ).argmin(dim=1)
                 c_total.index_add_(0, new_a, d)
                 c_count.index_add_(0, new_a, c_count.new_ones(d.size(0)))
                 changed += (a != new_a).sum()
                 a.copy_(new_a)
-            # re-init empty clusters
+            # keep empty clusters unchanged
             empty = (c_count == 0)
-            c_count[empty] = 1
-            c_total[empty] = torch.randn(empty.sum().item(), c_total.size(1), device=state.device)
+            nempty = empty.sum().item()
+            if nempty > 0:
+                logging.warn("{} empty cluster(s) found for class of index {} (kept unchanged)".format(nempty, c))
+                c_count[empty] = 1
+                c_total[empty] = c_center[empty]
         cls_centers = cls_totals / cls_counts.unsqueeze(2).to(cls_totals)
         return changed.item()
 
