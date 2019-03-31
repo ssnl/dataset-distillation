@@ -216,13 +216,13 @@ class BaseOptions(object):
                             help='input batch size for testing (default: 1024)')
         parser.add_argument('--test_niter', type=pos_int, default=1,
                             help='max number of batches to test (default: 1)')
-        parser.add_argument('--epochs', type=pos_int, default=200, metavar='N',
-                            help='number of total epochs to train (default: 200)')
-        parser.add_argument('--decay_epochs', type=pos_int, default=50, metavar='N',
-                            help='period of weight decay (default: 50)')
+        parser.add_argument('--epochs', type=pos_int, default=350, metavar='N',
+                            help='number of total epochs to train (default: 350)')
+        parser.add_argument('--decay_epochs', type=pos_int, default=35, metavar='N',
+                            help='period of weight decay (default: 35)')
         parser.add_argument('--decay_factor', type=pos_float, default=0.5, metavar='N',
                             help='weight decay multiplicative factor (default: 0.1)')
-        parser.add_argument('--lr', type=pos_float, default=0.01, metavar='LR',
+        parser.add_argument('--lr', type=pos_float, default=0.02, metavar='LR',
                             help='learning rate used to actually learn stuff (default: 0.01)')
         parser.add_argument('--init', type=str, default='xavier',
                             help='network initialization [normal|xavier|kaiming|orthogonal|zero|default]')
@@ -246,8 +246,8 @@ class BaseOptions(object):
                             help='architecture: LeNet | AlexNet | etc.')
         parser.add_argument('--mode', type=str, default='distill_basic',
                             help='mode: train | distill_basic | distill_attack | distill_adapt ')
-        parser.add_argument('--distill_lr', type=float, default=0.001,
-                            help='learning rate to perform GD with distilled images PER STEP (default: 0.001)')
+        parser.add_argument('--distill_lr', type=float, default=0.02,
+                            help='learning rate to perform GD with distilled images PER STEP (default: 0.02)')
         parser.add_argument('--model_dir', type=str, default='./models/',
                             help='directory storing trained models')
         parser.add_argument('--model_subdir_format', type=str, default=None,

@@ -64,7 +64,8 @@ The default options are designed for random initializations. In each training it
 + `Cifar10`:
 
     ```sh
-    python main.py --mode distill_basic --dataset Cifar10 --arch AlexCifarNet
+    python main.py --mode distill_basic --dataset Cifar10 --arch AlexCifarNet\
+        --distill_lr 0.001
     ```
 
     `AlexCifarNet` is an architecture adapted from [the `cuda-convnet` project](https://code.google.com/p/cuda-convnet2/) by Alex Krizhevsky.
@@ -85,7 +86,8 @@ Alternatively, the distilled images can be optimized for a particular initializa
 
     ```sh
     python main.py --mode distill_basic --dataset Cifar10 --arch AlexCifarNet \
-        --train_nets_type known_init --n_nets 1 --test_nets_type same_as_train
+        --distill_lr 0.001 --train_nets_type known_init --n_nets 1 \
+        --test_nets_type same_as_train
     ```
 
 ## Citation

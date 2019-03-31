@@ -56,7 +56,7 @@ For example, the follow command adapts it to the `PASCAL_VOC` dataset.
 python main.py --mode distill_basic --dataset PASCAL_VOC --arch AlexNet \
     --distill_steps 1 --distill_epochs 3 --init imagenet_pretrained \
     --train_nets_type known_init --test_nets_type same_as_train \
-    --epochs 150 --decay_epochs 23
+    --epochs 200 --decay_epochs 30 --distill_lr 0.001
 ```
 
 Use `--dataset CUB200` to adapt to the `CUB200` dataset.
