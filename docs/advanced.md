@@ -83,7 +83,7 @@ We use `Cifar10` as example.
     python main.py --mode distill_attack --dataset Cifar10 --arch AlexCifarNet \
         --train_nets_type loaded --n_nets 2000 --sample_n_nets 4 \
         --test_nets_type loaded --test_n_nets 20 \
-        --attack_class 0 --target_class 1
+        --attack_class 0 --target_class 1 --lr 0.02
     ```
 
 See [the Distributed Training section](#distributed-training) on using much more networks, e.g., 2000 networks for training in our experiments in paper.

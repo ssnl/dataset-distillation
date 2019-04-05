@@ -216,13 +216,13 @@ class BaseOptions(object):
                             help='input batch size for testing (default: 1024)')
         parser.add_argument('--test_niter', type=pos_int, default=1,
                             help='max number of batches to test (default: 1)')
-        parser.add_argument('--epochs', type=pos_int, default=350, metavar='N',
-                            help='number of total epochs to train (default: 350)')
-        parser.add_argument('--decay_epochs', type=pos_int, default=35, metavar='N',
-                            help='period of weight decay (default: 35)')
+        parser.add_argument('--epochs', type=pos_int, default=400, metavar='N',
+                            help='number of total epochs to train (default: 400)')
+        parser.add_argument('--decay_epochs', type=pos_int, default=40, metavar='N',
+                            help='period of weight decay (default: 40)')
         parser.add_argument('--decay_factor', type=pos_float, default=0.5, metavar='N',
                             help='weight decay multiplicative factor (default: 0.1)')
-        parser.add_argument('--lr', type=pos_float, default=0.02, metavar='LR',
+        parser.add_argument('--lr', type=pos_float, default=0.01, metavar='LR',
                             help='learning rate used to actually learn stuff (default: 0.01)')
         parser.add_argument('--init', type=str, default='xavier',
                             help='network initialization [normal|xavier|kaiming|orthogonal|zero|default]')
