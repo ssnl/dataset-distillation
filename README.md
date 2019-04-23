@@ -64,7 +64,7 @@ The default options are designed for random initializations. In each training it
 + `Cifar10`:
 
     ```sh
-    python main.py --mode distill_basic --dataset Cifar10 --arch AlexCifarNet\
+    python main.py --mode distill_basic --dataset Cifar10 --arch AlexCifarNet \
         --distill_lr 0.001
     ```
 
