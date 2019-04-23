@@ -96,7 +96,7 @@ class PatchModules(type):
                         '{} contains buffer {}. The buffer will be treated as '
                         'a constant and assumed not to change during gradient '
                         'steps. If this assumption is violated (e.g., '
-                        'BatcHNorm*d\' running_mean/var), the computation will '
+                        'BatchNorm*d\'s running_mean/var), the computation will '
                         'be incorrect.').format(m.__class__.__name__, n))
 
         net._weights_module_names = tuple(w_modules_names)
