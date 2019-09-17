@@ -53,7 +53,7 @@ def kmeans_train(state, p=2):
     k = state.distilled_images_per_class_per_step * state.distill_steps
 
     if k == 1:
-        return average_real(state)
+        return average_train(state)
 
     cls_data = [[] for _ in range(state.num_classes)]
 
