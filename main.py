@@ -251,8 +251,7 @@ def main(state):
 
                     def get_lrs(state):
                         n_steps = state.distill_steps * state.distill_epochs
-                        batch_size = state.num_classes * state.distilled_images_per_class_per_step
-                        return torch.full((n_steps, batch_size), val, device=state.device).unbind()
+                        return torch.full((n_steps,), val, device=state.device).unbind()
 
                 else:
                     raise NotImplementedError('test_distilled_lrs first: {}'.format(lr_meth))
