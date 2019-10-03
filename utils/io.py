@@ -1,11 +1,13 @@
-import utils
+import logging
 import os
 import warnings
-import torch
-import logging
-import numpy as np
-import six
+
 import matplotlib
+import numpy as np
+import torch
+
+import utils
+
 matplotlib.use('agg')  # this needs to be before the next line
 import matplotlib.pyplot as plt
 import datasets

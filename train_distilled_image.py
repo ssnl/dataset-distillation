@@ -1,21 +1,14 @@
-import time
-import os
 import logging
-import random
-import math
-import torch
-import torch.optim as optim
-import torch.distributed as dist
-import torch.nn.functional as F
+import time
+
 import numpy as np
-import utils
-import networks
-from itertools import repeat, chain
-from networks.utils import clone_tuple
+import torch
+import torch.nn.functional as F
+import torch.optim as optim
+
+from basics import task_loss, final_objective_loss, evaluate_steps
 from utils.distributed import broadcast_coalesced, all_reduce_coalesced
 from utils.io import save_results
-from basics import task_loss, final_objective_loss, evaluate_steps
-from contextlib import contextmanager
 
 
 def permute_list(list):

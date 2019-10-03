@@ -1,6 +1,5 @@
-import numpy as np
-import os
 import difflib
+import os
 
 
 def diff_str(first, second):

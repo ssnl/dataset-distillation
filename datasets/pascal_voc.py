@@ -4,18 +4,15 @@ Modified from
 https://github.com/Cadene/pretrained-models.pytorch/blob/56aa8c921819d14fb36d7248ab71e191b37cb146/pretrainedmodels/datasets/voc.py
 """
 
-import csv
 import os
 import os.path
 import tarfile
-from six.moves.urllib.parse import urlparse
 import xml.etree.ElementTree as ET
-import numpy as np
-import torch
-import torchvision
-import torch.utils.data as data
-from PIL import Image
 
+import torch.utils.data as data
+import torchvision
+from PIL import Image
+from six.moves.urllib.parse import urlparse
 
 object_categories = ['aeroplane', 'bicycle', 'bird', 'boat',
                      'bottle', 'bus', 'car', 'cat', 'chair',

@@ -1,8 +1,9 @@
-import sys
-import os
-import logging
-import tqdm
 import contextlib
+import logging
+import os
+import sys
+
+import tqdm
 
 
 class TqdmLoggingHandler(logging.Handler):

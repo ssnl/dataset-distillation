@@ -1,17 +1,12 @@
 """Dataset setting and data loader for CUB-200."""
 
-import gzip
-import torchvision
-import tarfile
-import os
-import pickle
 import logging
-from PIL import Image
+import os
+import tarfile
 
-import numpy as np
-import torch
 import torch.utils.data as data
-
+import torchvision
+from PIL import Image
 
 class_labels = [
     'Black_footed_Albatross',

@@ -1,14 +1,13 @@
-import torch
-import math
 import logging
+import math
+
 import numpy as np
+import torch
 import torch.nn.functional as F
 from tqdm import tqdm
-from base_options import options
+
 import networks
-from itertools import chain
-from collections import OrderedDict, namedtuple
-from utils import pm, nan
+from utils import pm
 from utils.distributed import all_gather_coalesced
 
 

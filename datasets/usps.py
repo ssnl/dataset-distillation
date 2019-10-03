@@ -5,10 +5,10 @@ https://github.com/mingyuliutw/CoGAN/blob/f940c28330ace09b3471d8745bfad7d891dbf0
 """
 
 import gzip
+import logging
 import os
 import pickle
 import urllib
-import logging
 
 import numpy as np
 import torch.utils.data as data

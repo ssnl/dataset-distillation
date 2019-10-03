@@ -1,17 +1,11 @@
-import torch
-import torchvision
 import logging
-import datasets
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.nn import init
-import functools
-import math
-import types
 from contextlib import contextmanager
-from torch.optim import lr_scheduler
+
+import torch
+import torch.nn as nn
+import torchvision
 from six import add_metaclass
-from itertools import chain
+from torch.nn import init
 
 
 def init_weights(net, state):
