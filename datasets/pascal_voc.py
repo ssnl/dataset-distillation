@@ -142,7 +142,7 @@ def read_split(root, dataset, split):
             line = line.strip().split()
             if len(line) > 0:
                 assert len(line) == 2
-                paths.append(l[0])
+                paths.append(line[0])
 
         return tuple(paths)
 

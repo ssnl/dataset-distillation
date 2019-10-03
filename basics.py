@@ -1,5 +1,6 @@
 import logging
 import math
+import os
 
 import numpy as np
 import torch
@@ -49,7 +50,7 @@ def final_objective_loss(state, output, label):
         label[label == state.attack_class] = state.target_class
         return task_loss(state, output, label)
     else:
-        raise NotImplementedError('mode ({}) is not implemented'.format(mode))
+        raise NotImplementedError('mode ({}) is not implemented'.format(state.mode))
 
 
 # NB: This trains params or model inplace!!!
@@ -57,7 +58,7 @@ def train_steps_inplace(state, models, steps, params=None, callback=None):
     if isinstance(models, torch.nn.Module):
         models = [models]
     if params is None:
-        params = [model.get_param() for m in models]
+        params = [m.get_param() for m in models]
 
     for i, (data, label, lr) in enumerate(steps):
         if callback is not None:
