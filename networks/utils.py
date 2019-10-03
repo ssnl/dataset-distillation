@@ -86,7 +86,7 @@ class PatchModules(type):
                     w_modules_names.append((m, n))
             for n, b in m.named_buffers(recurse=False):
                 if b is not None:
-                    logging.warn((
+                    logging.warning((
                         '{} contains buffer {}. The buffer will be treated as '
                         'a constant and assumed not to change during gradient '
                         'steps. If this assumption is violated (e.g., '

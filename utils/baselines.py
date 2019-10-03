@@ -103,7 +103,7 @@ def kmeans_train(state, p=2):
             empty = (c_count == 0)
             nempty = empty.sum().item()
             if nempty > 0:
-                logging.warn("{} empty cluster(s) found for class of index {} (kept unchanged)".format(nempty, c))
+                logging.warning("{} empty cluster(s) found for class of index {} (kept unchanged)".format(nempty, c))
                 c_count[empty] = 1
                 c_total[empty] = c_center[empty]
         cls_centers = cls_totals / cls_counts.unsqueeze(2).to(cls_totals)
