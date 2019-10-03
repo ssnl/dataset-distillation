@@ -9,7 +9,7 @@ import numpy as np
 import torch
 
 import networks
-from basics import options
+from base_options import options
 from train_distilled_image import Trainer
 
 
