@@ -1,19 +1,18 @@
 import argparse
+import logging
+import math
 import os
-import sys
+import random
+import time
+from contextlib import contextmanager
+
+import numpy as np
 import torch
+import torch.distributed as dist
+import yaml
+
 import datasets
 import utils
-import yaml
-import time
-import math
-import numpy as np
-import random
-import fcntl
-import atexit
-import logging
-import torch.distributed as dist
-from contextlib import contextmanager
 
 
 class State(object):

@@ -1,9 +1,9 @@
-from .utils import *
-from . import io
-from . import distributed
-from . import multiprocessing
-from . import logging
 from . import baselines
+from . import distributed
+from . import io
+from . import logging
+from . import multiprocessing
+from .utils import *
 
 pm = u'±'
 nan = float('nan')

@@ -1,8 +1,8 @@
-import sys
-import logging
-import traceback
-import multiprocessing as mp
 import atexit
+import logging
+import multiprocessing as mp
+import sys
+import traceback
 
 
 class ExceptionWrapper(object):

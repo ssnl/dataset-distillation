@@ -1,22 +1,23 @@
 from __future__ import print_function
-import time
+
+import functools
+import heapq
+import logging
+import os
+from contextlib import contextmanager
+
+import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-import os
-import heapq
-import functools
+
 import networks
-import logging
-from base_options import options
-import utils
-import numpy as np
-from networks.utils import print_network
-from utils.io import vis_results, load_results, save_test_results
-from basics import evaluate_models, evaluate_steps, format_stepwise_results
-from collections import defaultdict
-from contextlib import contextmanager
 import train_distilled_image
+import utils
+from base_options import options
+from basics import evaluate_models, evaluate_steps, format_stepwise_results
+from networks.utils import print_network
+from utils.io import load_results, save_test_results
 
 
 def train(state, model, epoch, optimizer):

@@ -1,14 +1,16 @@
-import torch
-import warnings
-import networks
-import pprint
-import numpy as np
-from train_distilled_image import Trainer
-from basics import options
-import unittest
-import inspect
-import functools
 import contextlib
+import functools
+import inspect
+import pprint
+import unittest
+import warnings
+
+import numpy as np
+import torch
+
+import networks
+from base_options import options
+from train_distilled_image import Trainer
 
 
 def unittest_verbosity():

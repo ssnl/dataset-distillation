@@ -1,14 +1,13 @@
-from torchvision import datasets, transforms
-from PIL import Image
-from .usps import USPS
-from . import caltech_ucsd_birds
-from . import pascal_voc
-import os
 import contextlib
-import numpy as np
-import torch
+import os
 from collections import namedtuple
 
+from PIL import Image
+from torchvision import datasets, transforms
+
+from . import caltech_ucsd_birds
+from . import pascal_voc
+from .usps import USPS
 
 default_dataset_roots = dict(
     MNIST='./data/mnist',

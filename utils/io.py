@@ -1,11 +1,13 @@
-import utils
+import logging
 import os
 import warnings
-import torch
-import logging
-import numpy as np
-import six
+
 import matplotlib
+import numpy as np
+import torch
+
+import utils
+
 matplotlib.use('agg')  # this needs to be before the next line
 import matplotlib.pyplot as plt
 import datasets
@@ -76,7 +78,7 @@ def _vis_results_fn(np_steps, distilled_images_per_class_per_step, dataset_info,
 
 def vis_results(state, steps, *args, immediate=False, **kwargs):
     if not state.get_output_flag():
-        logging.warn('Skip visualize results because output_flag is False')
+        logging.warning('Skip visualize results because output_flag is False')
         return
 
     if isinstance(steps[0][0], torch.Tensor):
@@ -120,7 +122,7 @@ def to_torch(np_steps, device):
 
 def save_results(state, steps, visualize=True, subfolder=''):
     if not state.get_output_flag():
-        logging.warn('Skip saving results because output_flag is False')
+        logging.warning('Skip saving results because output_flag is False')
         return
 
     expr_dir = os.path.join(state.get_save_directory(), subfolder)
@@ -146,7 +148,7 @@ def load_results(state, save_data_path=None, device=None):
 def save_test_results(state, results):
     assert state.phase != 'train'
     if not state.get_output_flag():
-        logging.warn('Skip saving test results because output_flag is False')
+        logging.warning('Skip saving test results because output_flag is False')
         return
 
     test_dir = state.get_save_directory()

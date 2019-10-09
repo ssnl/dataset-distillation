@@ -1,9 +1,8 @@
-import sys
-import torch
 import logging
-from .networks import *
+import sys
+
 from . import utils
-from collections import defaultdict
+from .networks import *
 
 
 def get_networks(state, N=None, arch=None):

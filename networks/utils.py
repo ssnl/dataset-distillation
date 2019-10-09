@@ -1,17 +1,11 @@
-import torch
-import torchvision
 import logging
-import datasets
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.nn import init
-import functools
-import math
-import types
 from contextlib import contextmanager
-from torch.optim import lr_scheduler
+
+import torch
+import torch.nn as nn
+import torchvision
 from six import add_metaclass
-from itertools import chain
+from torch.nn import init
 
 
 def init_weights(net, state):
@@ -92,7 +86,7 @@ class PatchModules(type):
                     w_modules_names.append((m, n))
             for n, b in m.named_buffers(recurse=False):
                 if b is not None:
-                    logging.warn((
+                    logging.warning((
                         '{} contains buffer {}. The buffer will be treated as '
                         'a constant and assumed not to change during gradient '
                         'steps. If this assumption is violated (e.g., '
