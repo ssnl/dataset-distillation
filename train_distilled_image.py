@@ -242,8 +242,9 @@ class Trainer(object):
                     model.reset(state)
 
                 l, saved = self.forward(model, rdata, rlabel, steps)
-                losses.append(l)
+                losses.append(l.detach())
                 grad_infos.append(self.backward(model, rdata, rlabel, steps, saved))
+                del l, saved
             self.accumulate_grad(grad_infos)
 
             # all reduce if needed
@@ -275,7 +276,7 @@ class Trainer(object):
                 if loss != loss:  # nan
                     raise RuntimeError('loss became NaN')
 
-            del steps, saved, grad_infos, losses, all_reduce_tensors
+            del steps, grad_infos, losses, all_reduce_tensors
 
             data_t0 = time.time()
 
