@@ -92,7 +92,7 @@ class Trainer(object):
             with torch.enable_grad():
                 output = model.forward_with_param(data, w)
                 loss = task_loss(state, output, label)
-            gw, = torch.autograd.grad(loss, w, lr, create_graph=True)
+            gw, = torch.autograd.grad(loss, w, lr.squeeze(), create_graph=True)
 
             with torch.no_grad():
                 new_w = w.sub(gw).requires_grad_()
