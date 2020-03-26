@@ -72,7 +72,7 @@ def train_steps_inplace(state, models, steps, params=None, callback=None):
             model.train()  # callback may change model.training so we set here
             output = model.forward_with_param(data, w)
             loss = task_loss(state, output, label)
-            loss.backward(lr)
+            loss.backward(lr.squeeze())
             with torch.no_grad():
                 w.sub_(w.grad)
                 w.grad = None
