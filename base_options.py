@@ -35,7 +35,7 @@ class State(object):
 
     def __init__(self, opt=None):
         if opt is None:
-            self.opt = UniqueNamespace()
+            self.opt = State.UniqueNamespace()
         else:
             if isinstance(opt, argparse.Namespace):
                 opt = vars(opt)
