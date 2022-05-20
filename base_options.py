@@ -320,7 +320,7 @@ class BaseOptions(object):
             opt = self.parser.parse_args(args=list(cmdargs), namespace=argparse.Namespace())
         else:
             with open(yaml_file, 'r') as f:
-                opt = yaml.load(f)
+                opt = yaml.full_load(f)
         state = State(opt)
         valid_keys = set(state.merge().keys())
         for k in opt_pairs:
@@ -419,7 +419,7 @@ class BaseOptions(object):
                 with open(yaml_name, 'r') as f:
                     # ignore unknown ctors
                     yaml.add_multi_constructor('', lambda loader, suffix, node: None)
-                    old_yaml = yaml.load(f)  # this is a dict
+                    old_yaml = yaml.full_load(f)  # this is a dict
                 old_yaml_time = old_yaml.get('start_time', 'unknown_time')
                 for c in ':-':
                     old_yaml_time = old_yaml_time.replace(c, '_')
