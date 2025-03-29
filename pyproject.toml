@@ -1,0 +1,31 @@
+[project]
+name = "dataset-distillation"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.8, <3.10"  # Ensure compatibility with PyTorch 1.10.0
+
+dependencies = [
+    "matplotlib==3.4.3",
+    "numpy==1.21.0",
+    "pillow==8.4.0",
+    "pyyaml==5.4.1",
+    "setuptools>=75.3.2",
+    "six==1.16.0",
+    "torch==1.10.0",
+    "torchvision==0.11.1",
+    "tqdm==4.62.3",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu113"
+url = "https://download.pytorch.org/whl/cu113"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu113", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+  { index = "pytorch-cu113", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
