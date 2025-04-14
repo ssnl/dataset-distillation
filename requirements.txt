@@ -5,4 +5,4 @@ six==1.16.0
 tqdm==4.62.3
 matplotlib==3.4.3
 pyyaml==5.4.1
-pillow==8.4.0
+pillow==10.3.0
