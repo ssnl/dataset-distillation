@@ -12,7 +12,7 @@ dependencies = [
     "pyyaml==5.4.1",
     "setuptools>=75.3.2",
     "six==1.16.0",
-    "torch==1.10.0",
+    "torch==2.6.0",
     "torchvision==0.11.1",
     "tqdm==4.62.3",
 ]
