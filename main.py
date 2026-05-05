@@ -20,7 +20,7 @@ from networks.utils import print_network
 from utils.io import load_results, save_test_results
 
 
-def train(state, model, epoch, optimizer): # I tested github commit
+def train(state, model, epoch, optimizer): # I tested github commit (2)
     model.train()
     for it, (data, target) in enumerate(state.train_loader):
         data, target = data.to(state.device, non_blocking=True), target.to(state.device, non_blocking=True)
