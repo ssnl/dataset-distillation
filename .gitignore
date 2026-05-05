@@ -28,3 +28,14 @@ models/
 .DS_Store
 
 .gdb_history
+
+# Codex Guideline to gitIgnore ===========
+# experiment outputs
+logs/
+checkpoints/
+wandb/
+
+# model weights
+*.pt
+*.pth
+*.ckpt

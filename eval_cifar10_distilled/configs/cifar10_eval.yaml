@@ -1,0 +1,21 @@
+# 이 파일은 실행 옵션을 기록하기 위한 메모용 config다.
+# 현재 train_eval.py는 argparse 기반이므로 YAML을 직접 읽지는 않는다.
+# 나중에 실험 조건을 고정하고 싶을 때 이 값을 명령행 인자로 옮겨 쓰면 된다.
+
+dataset: Cifar10
+models:
+  - SimpleCNN
+  - AlexCifarNet
+  - VGG11
+  - ResNet18
+  - ResNet50
+  - EfficientNet_B0
+train_sources:
+  - distilled
+  - full_cifar10
+seed: 1
+batch_size: 128
+test_batch_size: 256
+lr: 0.01
+momentum: 0.9
+weight_decay: 0.0005
